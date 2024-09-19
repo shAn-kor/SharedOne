@@ -133,12 +133,13 @@
 
 }
 
-
+/* 추가할때 회색 수정 */
+/* 
 .formTableList tr:nth-last-child(1) {
     background: rgb(241, 241, 241);
     background: linear-gradient(1deg, rgba(241, 241, 241, 1) 0%, rgba(255, 255, 255, 1) 100%);
 
-}
+} */
 
 
 .formTableList td {

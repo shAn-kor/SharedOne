@@ -9,6 +9,7 @@ import './modalDetail.css'
 import AddressInput from './AddressInput';
 
 
+
 function Customer() {
 
     const {
@@ -52,7 +53,7 @@ function Customer() {
         postNum: '',
         businessRegistrationNo: '',
         nation: '',
-        dealType: '',
+        // dealType: '',
         picName: '',
         picEmail: '',
         picTel: '',
@@ -410,8 +411,25 @@ function Customer() {
 
 
     //삭제 기능
+    // const handleDeleteClick = () => {
+    //     axios.post('/customer/customerDelete', checkedIds, {
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(response => {
+    //             console.log('삭제 요청 성공', response.data);
+    //             window.location.reload();
+    //         })
+    //         .catch(error => {
+    //             console.error('서버 요청 중 오류 발생', error);
+    //         });
+    // }
+
     const handleDeleteClick = () => {
-        axios.post('/customer/customerDelete', checkedIds, {
+        const numericIds = checkedIds.map(id => Number(id)); // 문자열을 숫자로 변환
+        console.log("삭제할 ID들: ", numericIds); // 로그 확인
+        axios.post('/customer/customerDelete', numericIds, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -423,7 +441,8 @@ function Customer() {
             .catch(error => {
                 console.error('서버 요청 중 오류 발생', error);
             });
-    }
+    };
+
 
 
 
@@ -525,7 +544,7 @@ function Customer() {
                                     required
                                 />
                             </div>
-
+                            
                             <div className="filter-item">
                                 <label className="filter-label" htmlFor="postNum">우편번호</label>
                                 <input
@@ -596,21 +615,9 @@ function Customer() {
                                 />
                             </div>
 
-                            <div className="filter-item">
-                                <label className="filter-label" htmlFor="dealType">거래 유형</label>
-                                <select
-                                    id="dealType"
-                                    className="filter-input"
-                                    onChange={handleInputChange}
-                                    value={customerSearch.dealType}
-                                    required
-                                >
-                                    <option value="" disabled>거래 유형 선택</option>
-                                    <option value="B2B">B2B</option>
-                                    <option value="B2C">B2C</option>
-                                    <option value="C2C">C2C</option>
-                                </select>
-                            </div>
+
+
+
                         </div>
                     </div>
 
@@ -691,8 +698,14 @@ function Customer() {
                                 <tr key={index} className={checkItem[index] ? 'selected-row' : ''} onDoubleClick={() => {
                                     handleModify(item);
                                 }}>
-                                    <td><input className="mainCheckbox" type="checkbox" id={index + 1} checked={checkItem[index] || false}
-                                        onChange={handleCheckboxChange} /></td>
+                                    <td>
+                                        <input
+                                            className="mainCheckbox"
+                                            type="checkbox"
+                                            id={item.customerNo} // 고객 번호로 ID 설정
+                                            checked={checkItem[index] || false}
+                                            onChange={handleCheckboxChange}/>
+                                    </td>
                                     <td style={{ display: 'none' }}>{index}</td>
                                     <td>{index + 1}</td>
                                     <td>{item.customerName}</td>

@@ -24,7 +24,6 @@ public class CustomerController {
 
         System.out.println("나오나 안나오나");
         System.out.println(customerList);
-
         System.out.println(customerService.getAllList());
 
         return customerService.getAllList();
